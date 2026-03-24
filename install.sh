@@ -97,7 +97,7 @@ PACMAN_PKGS=(
 
     # Display / GPU
     mesa
-    nvidia-dkms          # swap for vulkan-radeon / nvidia-dkms as needed
+    vulkan-intel         # swap for vulkan-radeon / nvidia-dkms as needed
 
     # Waybar
     waybar
