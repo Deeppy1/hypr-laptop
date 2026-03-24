@@ -1,0 +1,228 @@
+/* ═══════════════════════════════════════════════════════════
+   WAYBAR STYLESHEET — AMONG TREES THEME
+   Forest floor dark base · amber glow accents · teal fog mid
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Palette ─────────────────────────────────────────────── */
+@define-color bg-base        rgba(13, 26, 31, 0.82);
+@define-color bg-surface     rgba(26, 58, 74, 0.72);
+@define-color bg-hover       rgba(42, 85, 112, 0.80);
+@define-color border-col     rgba(232, 147, 90, 0.30);
+
+@define-color text-primary   #f7d8a0;
+@define-color text-secondary #9bbfcc;
+@define-color text-dim       #5a8a9f;
+
+@define-color accent-amber   #e8935a;
+@define-color accent-coral   #c4614a;
+@define-color accent-gold    #f4b87a;
+@define-color accent-teal    #4a9fb5;
+@define-color accent-green   #5a8c3a;
+
+@define-color warn-yellow    #f0c060;
+@define-color err-red        #d45550;
+@define-color ok-green       #6aaa50;
+
+/* ── Root bar ─────────────────────────────────────────────── */
+* {
+    font-family: "JetBrainsMono Nerd Font", "Noto Sans", monospace;
+    font-size: 13px;
+    min-height: 0;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    margin: 0;
+}
+
+window#waybar {
+    background: transparent;
+    color: @text-primary;
+}
+
+.modules-left,
+.modules-center,
+.modules-right {
+    background: @bg-base;
+    border: 1px solid @border-col;
+    border-radius: 12px;
+    padding: 2px 8px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 4px 24px rgba(13, 26, 31, 0.60),
+                inset 0 1px 0 rgba(247, 216, 160, 0.08);
+}
+
+/* Ensure center sits neatly */
+.modules-center {
+    padding: 2px 16px;
+}
+
+/* ── Generic module pill ─────────────────────────────────── */
+#custom-logo,
+#hyprland-workspaces,
+#hyprland-window,
+#clock,
+#pulseaudio,
+#network,
+#bluetooth,
+#battery,
+#backlight,
+#custom-power {
+    padding: 4px 10px;
+    color: @text-primary;
+    border-radius: 8px;
+    transition: background 180ms ease, color 180ms ease;
+}
+
+/* ── Logo ────────────────────────────────────────────────── */
+#custom-logo {
+    color: @accent-amber;
+    font-size: 16px;
+    padding: 4px 12px 4px 8px;
+    margin-right: 4px;
+}
+
+#custom-logo:hover {
+    color: @accent-gold;
+}
+
+/* ── Workspaces ──────────────────────────────────────────── */
+#hyprland-workspaces {
+    padding: 4px 6px;
+}
+
+#hyprland-workspaces button {
+    padding: 2px 7px;
+    color: @text-dim;
+    background: transparent;
+    border-radius: 6px;
+    font-size: 13px;
+    transition: all 180ms ease;
+    min-width: 0;
+}
+
+#hyprland-workspaces button:hover {
+    background: @bg-hover;
+    color: @text-secondary;
+}
+
+#hyprland-workspaces button.active {
+    background: linear-gradient(135deg, rgba(232,147,90,0.25), rgba(196,97,74,0.20));
+    color: @accent-gold;
+    border: 1px solid rgba(232,147,90,0.40);
+    box-shadow: 0 0 10px rgba(232,147,90,0.20);
+}
+
+#hyprland-workspaces button.urgent {
+    background: rgba(212, 85, 80, 0.25);
+    color: @err-red;
+    border: 1px solid rgba(212,85,80,0.40);
+    animation: urgent-pulse 1s ease infinite;
+}
+
+@keyframes urgent-pulse {
+    0%, 100% { box-shadow: 0 0 6px rgba(212,85,80,0.30); }
+    50%       { box-shadow: 0 0 14px rgba(212,85,80,0.60); }
+}
+
+/* ── Window title ────────────────────────────────────────── */
+#hyprland-window {
+    color: @text-secondary;
+    font-size: 12px;
+    font-style: italic;
+    padding-left: 4px;
+}
+
+/* ── Clock ───────────────────────────────────────────────── */
+#clock {
+    color: @accent-gold;
+    font-weight: 600;
+    font-size: 13.5px;
+    letter-spacing: 0.5px;
+}
+
+/* ── Audio ───────────────────────────────────────────────── */
+#pulseaudio {
+    color: @text-primary;
+}
+
+#pulseaudio.muted {
+    color: @text-dim;
+}
+
+#pulseaudio:hover {
+    background: @bg-hover;
+    color: @accent-teal;
+}
+
+/* ── Network ─────────────────────────────────────────────── */
+#network {
+    color: @accent-teal;
+}
+
+#network.disconnected {
+    color: @text-dim;
+}
+
+/* ── Bluetooth ───────────────────────────────────────────── */
+#bluetooth {
+    color: @text-dim;
+}
+
+#bluetooth.connected {
+    color: @accent-teal;
+}
+
+/* ── Battery ─────────────────────────────────────────────── */
+#battery {
+    color: @ok-green;
+}
+
+#battery.warning {
+    color: @warn-yellow;
+}
+
+#battery.critical {
+    color: @err-red;
+    animation: blink 1s linear infinite;
+}
+
+#battery.charging {
+    color: @accent-teal;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.4; }
+}
+
+/* ── Backlight ───────────────────────────────────────────── */
+#backlight {
+    color: @accent-amber;
+}
+
+/* ── Power button ────────────────────────────────────────── */
+#custom-power {
+    color: @accent-coral;
+    font-size: 15px;
+    padding: 4px 8px;
+    margin-left: 4px;
+}
+
+#custom-power:hover {
+    background: rgba(196, 97, 74, 0.25);
+    color: #f07060;
+}
+
+/* ── Tooltip ─────────────────────────────────────────────── */
+tooltip {
+    background: @bg-base;
+    border: 1px solid @border-col;
+    border-radius: 8px;
+    color: @text-primary;
+    padding: 6px 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.50);
+}
+
+tooltip label {
+    color: @text-primary;
+}

@@ -1,0 +1,174 @@
+/*
+ * ╔══════════════════════════════════════════════════════╗
+ * ║        ROFI THEME — AMONG TREES                      ║
+ * ║  Dark teal forest base · amber warmth · misty glass  ║
+ * ╚══════════════════════════════════════════════════════╝
+ *
+ * Place at: ~/.config/rofi/among-trees.rasi
+ */
+
+* {
+    /* Palette */
+    bg-base:        rgba(10, 20, 25, 0.92);
+    bg-surface:     rgba(20, 46, 58, 0.85);
+    bg-hover:       rgba(38, 76, 96, 0.90);
+    bg-selected:    rgba(232, 147, 90, 0.22);
+    bg-entry:       rgba(13, 30, 38, 0.80);
+
+    border-accent:  rgba(232, 147, 90, 0.45);
+    border-subtle:  rgba(74, 159, 181, 0.25);
+
+    fg-primary:     #f7d8a0;
+    fg-secondary:   #9bbfcc;
+    fg-dim:         #5a8a9f;
+    fg-selected:    #f4b87a;
+    fg-active:      #e8935a;
+
+    /* Reset defaults */
+    background-color:   transparent;
+    text-color:         @fg-primary;
+    font:               "JetBrainsMono Nerd Font 13";
+    border:             0;
+    margin:             0;
+    padding:            0;
+    spacing:            0;
+}
+
+/* ── Window ──────────────────────────────────────────────── */
+window {
+    width:            540px;
+    background-color: @bg-base;
+    border:           1px solid @border-accent;
+    border-radius:    16px;
+    padding:          0;
+    box-shadow:       0 20px 60px rgba(0,0,0,0.70),
+                      0  0  40px rgba(232,147,90,0.10),
+                      inset 0 1px 0 rgba(247,216,160,0.08);
+}
+
+/* ── Main box ────────────────────────────────────────────── */
+mainbox {
+    background-color: transparent;
+    children:         [ inputbar, message, listview ];
+    padding:          12px;
+    spacing:          8px;
+}
+
+/* ── Input bar ───────────────────────────────────────────── */
+inputbar {
+    background-color: @bg-entry;
+    border:           1px solid @border-subtle;
+    border-radius:    10px;
+    padding:          10px 14px;
+    spacing:          8px;
+    children:         [ prompt, entry ];
+}
+
+prompt {
+    background-color: transparent;
+    text-color:       @fg-active;
+    font:             "JetBrainsMono Nerd Font Bold 13";
+    vertical-align:   0.5;
+}
+
+entry {
+    background-color: transparent;
+    text-color:       @fg-primary;
+    placeholder:      "Search...";
+    placeholder-color: @fg-dim;
+    cursor:           text;
+    vertical-align:   0.5;
+}
+
+/* ── List view ───────────────────────────────────────────── */
+listview {
+    background-color: transparent;
+    columns:          1;
+    lines:            8;
+    spacing:          2px;
+    cycle:            true;
+    scrollbar:        false;
+}
+
+/* ── Elements ────────────────────────────────────────────── */
+element {
+    background-color: transparent;
+    border-radius:    8px;
+    padding:          9px 12px;
+    spacing:          10px;
+    orientation:      horizontal;
+    children:         [ element-icon, element-text ];
+    cursor:           pointer;
+    transition:       background-color 120ms ease;
+}
+
+element normal.normal,
+element alternate.normal {
+    background-color: transparent;
+    text-color:       @fg-secondary;
+}
+
+element normal.urgent,
+element alternate.urgent {
+    background-color: rgba(196, 97, 74, 0.18);
+    text-color:       #e07060;
+}
+
+element normal.active,
+element alternate.active {
+    background-color: rgba(74, 159, 181, 0.15);
+    text-color:       @fg-secondary;
+}
+
+element selected.normal {
+    background-color: @bg-selected;
+    text-color:       @fg-selected;
+    border:           1px solid rgba(232,147,90,0.35);
+    box-shadow:       inset 0 0 0 1px rgba(247,216,160,0.05);
+}
+
+element selected.urgent {
+    background-color: rgba(196, 97, 74, 0.30);
+    text-color:       #f07060;
+}
+
+element selected.active {
+    background-color: rgba(74, 159, 181, 0.25);
+    text-color:       #7fd8f0;
+}
+
+element-icon {
+    background-color: transparent;
+    size:             22px;
+    vertical-align:   0.5;
+}
+
+element-text {
+    background-color: transparent;
+    text-color:       inherit;
+    vertical-align:   0.5;
+    highlight:        bold #e8935a;
+}
+
+/* ── Message area (mode indicator etc.) ─────────────────── */
+message {
+    background-color: transparent;
+    padding:          4px 0 0;
+}
+
+textbox {
+    background-color: transparent;
+    text-color:       @fg-dim;
+    font:             "JetBrainsMono Nerd Font Italic 11";
+    padding:          4px 14px;
+}
+
+/* ── Scrollbar ───────────────────────────────────────────── */
+scrollbar {
+    background-color: @bg-surface;
+    handle-color:     @border-accent;
+    handle-width:     4px;
+    border-radius:    2px;
+    width:            6px;
+    padding:          0 2px;
+}

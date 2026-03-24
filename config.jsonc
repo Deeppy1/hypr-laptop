@@ -1,0 +1,118 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 38,
+    "spacing": 4,
+    "margin-top": 8,
+    "margin-left": 14,
+    "margin-right": 14,
+
+    "modules-left": [
+        "custom/logo",
+        "hyprland/workspaces",
+        "hyprland/window"
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    "modules-right": [
+        "pulseaudio",
+        "network",
+        "bluetooth",
+        "battery",
+        "backlight",
+        "custom/power"
+    ],
+
+    "custom/logo": {
+        "format": "󰌪",
+        "tooltip": false,
+        "on-click": "rofi -show drun -theme ~/.config/rofi/among-trees.rasi"
+    },
+
+    "hyprland/workspaces": {
+        "format": "{icon}",
+        "on-click": "activate",
+        "format-icons": {
+            "1": "󰎤",
+            "2": "󰎧",
+            "3": "󰎪",
+            "4": "󰎭",
+            "5": "󰎱",
+            "urgent": "󰗖",
+            "active": "󰮯",
+            "default": "󰊠"
+        },
+        "sort-by-number": true,
+        "persistent-workspaces": {
+            "*": [1, 2, 3, 4, 5]
+        }
+    },
+
+    "hyprland/window": {
+        "format": "  {}",
+        "max-length": 50,
+        "separate-outputs": true
+    },
+
+    "clock": {
+        "timezone": "Europe/London",
+        "tooltip-format": "<big>{:%A, %d %B %Y}</big>\n<tt><small>{calendar}</small></tt>",
+        "format": "󰸗  {:%H:%M}",
+        "format-alt": "󰃰  {:%a %d %b %Y}"
+    },
+
+    "backlight": {
+        "format": "{icon}  {percent}%",
+        "format-icons": ["󰋙", "󰫱", "󰫲", "󰫳", "󰫴", "󰫵", "󰫶", "󰃟", "󰃠"]
+    },
+
+    "battery": {
+        "states": {
+            "good": 80,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon}  {capacity}%",
+        "format-charging": "󰂄  {capacity}%",
+        "format-plugged": "󰚥  {capacity}%",
+        "format-full": "󰁹  Full",
+        "format-icons": ["󰁺","󰁻","󰁼","󰁽","󰁾","󰁿","󰂀","󰂁","󰂂","󰁹"],
+        "tooltip-format": "{time} remaining"
+    },
+
+    "network": {
+        "format-wifi": "󰤨  {essid}",
+        "format-ethernet": "󰈀  {ifname}",
+        "format-disconnected": "󰤭  No Network",
+        "tooltip-format-wifi": "{signalStrength}% signal\n{ipaddr}",
+        "on-click": "nm-connection-editor"
+    },
+
+    "bluetooth": {
+        "format": "󰂯",
+        "format-connected": "󰂱  {device_alias}",
+        "format-connected-battery": "󰂱  {device_alias} {device_battery_percentage}%",
+        "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+        "on-click": "blueman-manager"
+    },
+
+    "pulseaudio": {
+        "format": "{icon}  {volume}%",
+        "format-bluetooth": "󰂰  {volume}%",
+        "format-muted": "󰝟",
+        "format-icons": {
+            "headphone": "󰋋",
+            "default": ["󰕿", "󰖀", "󰕾"]
+        },
+        "on-click": "pavucontrol"
+    },
+
+    "custom/power": {
+        "format": "󰐥",
+        "tooltip": false,
+        "on-click": "rofi -show power-menu -modi 'power-menu:~/.config/rofi/powermenu.sh' -theme ~/.config/rofi/among-trees.rasi"
+    }
+}
