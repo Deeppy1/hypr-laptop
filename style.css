@@ -1,228 +1,245 @@
-/* ═══════════════════════════════════════════════════════════
-   WAYBAR STYLESHEET — AMONG TREES THEME
-   Forest floor dark base · amber glow accents · teal fog mid
-   ═══════════════════════════════════════════════════════════ */
+/* =========================================================
+   Waybar — Among Trees / Hyprlock unified theme
+   Palette mirrors hyprlock.conf exactly:
+     @navy      #0f1e2e   deep tree silhouettes
+     @mid       #1a2535   panel fill
+     @teal      #4ea8c4   teal mist midground
+     @teal_dim  #3a7a90   darker teal variant
+     @amber     #ffae3b   amber sky glow
+     @gold      #ffd580   sun burst centre
+     @coral     #ff7859   warm horizon
+     @frost     #b8ccd8   pale fog / text
+     @muted     #7a9aaa   secondary text
+   ========================================================= */
 
-/* ── Palette ─────────────────────────────────────────────── */
-@define-color bg-base        rgba(13, 26, 31, 0.82);
-@define-color bg-surface     rgba(26, 58, 74, 0.72);
-@define-color bg-hover       rgba(42, 85, 112, 0.80);
-@define-color border-col     rgba(232, 147, 90, 0.30);
+@define-color navy     #0f1e2e;
+@define-color mid      #1a2535;
+@define-color teal     #4ea8c4;
+@define-color teal_dim #3a7a90;
+@define-color amber    #ffae3b;
+@define-color gold     #ffd580;
+@define-color coral    #ff7859;
+@define-color frost    #b8ccd8;
+@define-color muted    #7a9aaa;
 
-@define-color text-primary   #f7d8a0;
-@define-color text-secondary #9bbfcc;
-@define-color text-dim       #5a8a9f;
-
-@define-color accent-amber   #e8935a;
-@define-color accent-coral   #c4614a;
-@define-color accent-gold    #f4b87a;
-@define-color accent-teal    #4a9fb5;
-@define-color accent-green   #5a8c3a;
-
-@define-color warn-yellow    #f0c060;
-@define-color err-red        #d45550;
-@define-color ok-green       #6aaa50;
-
-/* ── Root bar ─────────────────────────────────────────────── */
+/* ── Reset ────────────────────────────────────────────── */
 * {
-    font-family: "JetBrainsMono Nerd Font", "Noto Sans", monospace;
-    font-size: 13px;
+    font-family: "JetBrains Mono NF", "JetBrains Mono", monospace;
+    font-size: 12px;
     min-height: 0;
     border: none;
     border-radius: 0;
-    padding: 0;
-    margin: 0;
+    box-shadow: none;
 }
 
+/* ── Bar ──────────────────────────────────────────────── */
 window#waybar {
-    background: transparent;
-    color: @text-primary;
+    background: alpha(@navy, 0.88);
+    border-bottom: 1px solid alpha(@teal, 0.18);
+    color: @frost;
 }
 
-.modules-left,
-.modules-center,
-.modules-right {
-    background: @bg-base;
-    border: 1px solid @border-col;
-    border-radius: 12px;
-    padding: 2px 8px;
-    backdrop-filter: blur(12px);
-    box-shadow: 0 4px 24px rgba(13, 26, 31, 0.60),
-                inset 0 1px 0 rgba(247, 216, 160, 0.08);
+/* ── Module spacing ───────────────────────────────────── */
+.modules-left   > widget,
+.modules-center > widget,
+.modules-right  > widget {
+    margin: 4px 2px;
 }
 
-/* Ensure center sits neatly */
-.modules-center {
-    padding: 2px 16px;
-}
-
-/* ── Generic module pill ─────────────────────────────────── */
-#custom-logo,
-#hyprland-workspaces,
-#hyprland-window,
+/* ── Shared pill ──────────────────────────────────────── */
+#workspaces,
+#window,
 #clock,
 #pulseaudio,
 #network,
-#bluetooth,
+#cpu,
+#memory,
 #battery,
-#backlight,
-#custom-power {
-    padding: 4px 10px;
-    color: @text-primary;
+#tray {
+    background: alpha(@mid, 0.70);
+    border: 1px solid alpha(@teal, 0.12);
     border-radius: 8px;
-    transition: background 180ms ease, color 180ms ease;
+    padding: 0 10px;
+    color: @frost;
+    transition: background 200ms ease,
+                border-color 200ms ease,
+                color 200ms ease;
 }
 
-/* ── Logo ────────────────────────────────────────────────── */
-#custom-logo {
-    color: @accent-amber;
-    font-size: 16px;
-    padding: 4px 12px 4px 8px;
-    margin-right: 4px;
-}
-
-#custom-logo:hover {
-    color: @accent-gold;
-}
-
-/* ── Workspaces ──────────────────────────────────────────── */
-#hyprland-workspaces {
-    padding: 4px 6px;
-}
-
-#hyprland-workspaces button {
-    padding: 2px 7px;
-    color: @text-dim;
+/* ── Workspaces ───────────────────────────────────────── */
+#workspaces {
     background: transparent;
+    border: none;
+    padding: 0 4px;
+}
+
+#workspaces button {
+    padding: 0 8px;
+    color: alpha(@teal, 0.40);
     border-radius: 6px;
-    font-size: 13px;
-    transition: all 180ms ease;
-    min-width: 0;
+    border: 1px solid transparent;
+    background: transparent;
+    transition: all 150ms ease;
 }
 
-#hyprland-workspaces button:hover {
-    background: @bg-hover;
-    color: @text-secondary;
+#workspaces button:hover {
+    background: alpha(@teal, 0.10);
+    border-color: alpha(@teal, 0.30);
+    color: @teal;
 }
 
-#hyprland-workspaces button.active {
-    background: linear-gradient(135deg, rgba(232,147,90,0.25), rgba(196,97,74,0.20));
-    color: @accent-gold;
-    border: 1px solid rgba(232,147,90,0.40);
-    box-shadow: 0 0 10px rgba(232,147,90,0.20);
+#workspaces button.active {
+    background: alpha(@teal, 0.18);
+    border-color: alpha(@teal, 0.50);
+    color: @gold;
+    font-weight: bold;
 }
 
-#hyprland-workspaces button.urgent {
-    background: rgba(212, 85, 80, 0.25);
-    color: @err-red;
-    border: 1px solid rgba(212,85,80,0.40);
-    animation: urgent-pulse 1s ease infinite;
+#workspaces button.urgent {
+    background: alpha(@coral, 0.18);
+    border-color: alpha(@coral, 0.55);
+    color: @coral;
 }
 
-@keyframes urgent-pulse {
-    0%, 100% { box-shadow: 0 0 6px rgba(212,85,80,0.30); }
-    50%       { box-shadow: 0 0 14px rgba(212,85,80,0.60); }
-}
-
-/* ── Window title ────────────────────────────────────────── */
-#hyprland-window {
-    color: @text-secondary;
-    font-size: 12px;
+/* ── Window title ─────────────────────────────────────── */
+#window {
+    color: @muted;
+    font-size: 11px;
     font-style: italic;
-    padding-left: 4px;
 }
+/*
+#window:empty {
+    background: transparent;
+    border-color: transparent;
+}
+*/
 
-/* ── Clock ───────────────────────────────────────────────── */
+/* ── Clock — amber, like hyprlock clock ───────────────── */
 #clock {
-    color: @accent-gold;
-    font-weight: 600;
-    font-size: 13.5px;
-    letter-spacing: 0.5px;
+    color: @gold;
+    font-weight: bold;
+    letter-spacing: 0.03em;
+    padding: 0 16px;
+    border-color: alpha(@amber, 0.18);
 }
 
-/* ── Audio ───────────────────────────────────────────────── */
+#clock:hover {
+    background: alpha(@amber, 0.08);
+    border-color: alpha(@amber, 0.38);
+    color: @amber;
+}
+
+/* ── Audio ────────────────────────────────────────────── */
 #pulseaudio {
-    color: @text-primary;
-}
-
-#pulseaudio.muted {
-    color: @text-dim;
+    color: @frost;
 }
 
 #pulseaudio:hover {
-    background: @bg-hover;
-    color: @accent-teal;
+    background: alpha(@teal, 0.12);
+    border-color: alpha(@teal, 0.35);
 }
 
-/* ── Network ─────────────────────────────────────────────── */
+#pulseaudio.muted {
+    color: alpha(@muted, 0.45);
+    border-color: alpha(@muted, 0.15);
+}
+
+/* ── Network — teal, like hyprlock date ───────────────── */
 #network {
-    color: @accent-teal;
+    color: @teal;
+}
+
+#network:hover {
+    background: alpha(@teal, 0.12);
+    border-color: alpha(@teal, 0.38);
 }
 
 #network.disconnected {
-    color: @text-dim;
+    color: @coral;
+    border-color: alpha(@coral, 0.35);
 }
 
-/* ── Bluetooth ───────────────────────────────────────────── */
-#bluetooth {
-    color: @text-dim;
+/* ── CPU ──────────────────────────────────────────────── */
+#cpu {
+    color: @frost;
 }
 
-#bluetooth.connected {
-    color: @accent-teal;
+#cpu:hover {
+    background: alpha(@teal, 0.10);
+    border-color: alpha(@teal, 0.30);
+    color: @teal;
 }
 
-/* ── Battery ─────────────────────────────────────────────── */
+/* CPU load states — teal → amber → coral */
+#cpu.warning {
+    color: @amber;
+    border-color: alpha(@amber, 0.30);
+}
+
+#cpu.critical {
+    color: @coral;
+    border-color: alpha(@coral, 0.40);
+}
+
+/* ── Memory ───────────────────────────────────────────── */
+#memory {
+    color: @frost;
+}
+
+#memory:hover {
+    background: alpha(@teal, 0.10);
+    border-color: alpha(@teal, 0.30);
+    color: @teal;
+}
+
+/* ── Battery — green → amber → coral like hyprlock ───── */
 #battery {
-    color: @ok-green;
+    color: @teal;
 }
 
-#battery.warning {
-    color: @warn-yellow;
+#battery.good {
+    color: @teal;
 }
 
-#battery.critical {
-    color: @err-red;
-    animation: blink 1s linear infinite;
+#battery.charging,
+#battery.plugged {
+    color: @teal;
+    border-color: alpha(@teal, 0.25);
 }
 
-#battery.charging {
-    color: @accent-teal;
+#battery.warning:not(.charging) {
+    color: @amber;
+    border-color: alpha(@amber, 0.30);
+}
+
+#battery.critical:not(.charging) {
+    color: @coral;
+    border-color: alpha(@coral, 0.45);
+    animation: blink 1s steps(1) infinite;
 }
 
 @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50%       { opacity: 0.4; }
+    0%  { color: @coral; }
+    50% { color: alpha(@coral, 0.30); }
 }
 
-/* ── Backlight ───────────────────────────────────────────── */
-#backlight {
-    color: @accent-amber;
+/* ── Tray ─────────────────────────────────────────────── */
+#tray {
+    padding: 0 8px;
 }
 
-/* ── Power button ────────────────────────────────────────── */
-#custom-power {
-    color: @accent-coral;
-    font-size: 15px;
-    padding: 4px 8px;
-    margin-left: 4px;
-}
+#tray > .passive { -gtk-icon-effect: dim; }
+#tray > .active  { -gtk-icon-effect: none; }
 
-#custom-power:hover {
-    background: rgba(196, 97, 74, 0.25);
-    color: #f07060;
-}
-
-/* ── Tooltip ─────────────────────────────────────────────── */
+/* ── Tooltip ──────────────────────────────────────────── */
 tooltip {
-    background: @bg-base;
-    border: 1px solid @border-col;
+    background: alpha(@navy, 0.96);
+    border: 1px solid alpha(@teal, 0.25);
     border-radius: 8px;
-    color: @text-primary;
-    padding: 6px 10px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.50);
+    color: @frost;
+    font-size: 12px;
 }
 
 tooltip label {
-    color: @text-primary;
+    color: @frost;
 }
