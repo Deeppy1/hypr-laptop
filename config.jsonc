@@ -1,14 +1,13 @@
 {
     "layer": "top",
     "position": "top",
-    "height": 38,
-    "spacing": 4,
-    "margin-top": 8,
-    "margin-left": 14,
-    "margin-right": 14,
+    "height": 36,
+    "spacing": 2,
+    "margin-top": 0,
+    "margin-left": 0,
+    "margin-right": 0,
 
     "modules-left": [
-        "custom/logo",
         "hyprland/workspaces",
         "hyprland/window"
     ],
@@ -18,53 +17,92 @@
     "modules-right": [
         "pulseaudio",
         "network",
-        "bluetooth",
+        "cpu",
+        "memory",
         "battery",
-        "backlight",
-        "custom/power"
+        "tray"
     ],
-
-    "custom/logo": {
-        "format": "󰌪",
-        "tooltip": false,
-        "on-click": "rofi -show drun -theme ~/.config/rofi/among-trees.rasi"
-    },
 
     "hyprland/workspaces": {
         "format": "{icon}",
         "on-click": "activate",
         "format-icons": {
-            "1": "󰎤",
-            "2": "󰎧",
-            "3": "󰎪",
-            "4": "󰎭",
-            "5": "󰎱",
-            "urgent": "󰗖",
-            "active": "󰮯",
-            "default": "󰊠"
+            "1": "1",
+            "2": "2",
+            "3": "3",
+            "4": "4",
+            "5": "5",
+            "active": "",
+            "default": ""
         },
-        "sort-by-number": true,
-        "persistent-workspaces": {
-            "*": [1, 2, 3, 4, 5]
-        }
+        "sort-by-number": true
     },
 
     "hyprland/window": {
-        "format": "  {}",
         "max-length": 50,
-        "separate-outputs": true
+        "separate-outputs": true,
+        "rewrite": {
+            "(.*) — Mozilla Firefox": "󰈹  $1",
+            "(.*) - Google Chrome": "󰊯  $1",
+            "(.*)kitty(.*)": "  $1",
+            "(.*)nvim(.*)": "  $1",
+            "(.*)code(.*)": "󰨞  $1",
+            "(.*) - Discord": "󰙯  $1",
+            "(.*) - btop": "󰨇  $1"
+        }
     },
 
     "clock": {
-        "timezone": "Europe/London",
-        "tooltip-format": "<big>{:%A, %d %B %Y}</big>\n<tt><small>{calendar}</small></tt>",
-        "format": "󰸗  {:%H:%M}",
-        "format-alt": "󰃰  {:%a %d %b %Y}"
+        "format": "{:%H:%M}",
+        "format-alt": "{:%a %d %b  %H:%M}",
+        "tooltip-format": "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>",
+        "on-click": "toggle-alt"
     },
 
-    "backlight": {
-        "format": "{icon}  {percent}%",
-        "format-icons": ["󰋙", "󰫱", "󰫲", "󰫳", "󰫴", "󰫵", "󰫶", "󰃟", "󰃠"]
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": "󰝟",
+        "format-icons": {
+            "headphone": "󰋋",
+            "hands-free": "󰋎",
+            "headset": "󰋎",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["󰕿", "󰖀", "󰕾"]
+        },
+        "on-click": "pavucontrol",
+        "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +2%",
+        "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -2%",
+        "tooltip-format": "{desc}"
+    },
+
+    "network": {
+        "format-wifi": "󰖩 {essid}",
+        "format-ethernet": "󰈀 {ipaddr}",
+        "format-disconnected": "󰖪",
+        "format-linked": "󰈀 {ifname}",
+        "tooltip-format-wifi": "{essid} — {signalStrength}%\n{ipaddr}",
+        "tooltip-format-ethernet": "{ipaddr}  {ifname}",
+        "on-click": "nm-connection-editor"
+    },
+
+    "cpu": {
+        "format": "󰘚 {usage}%",
+        "tooltip": true,
+        "interval": 2,
+        "states": {
+            "warning": 70,
+            "critical": 90
+        },
+        "on-click": "kitty --title btop btop"
+    },
+
+    "memory": {
+        "format": "󰍛 {used:0.1f}G",
+        "tooltip-format": "{used:0.1f} GiB / {total:0.1f} GiB used\n{swapUsed:0.1f} GiB swap",
+        "interval": 5,
+        "on-click": "kitty --title btop btop"
     },
 
     "battery": {
@@ -73,46 +111,15 @@
             "warning": 30,
             "critical": 15
         },
-        "format": "{icon}  {capacity}%",
-        "format-charging": "󰂄  {capacity}%",
-        "format-plugged": "󰚥  {capacity}%",
-        "format-full": "󰁹  Full",
-        "format-icons": ["󰁺","󰁻","󰁼","󰁽","󰁾","󰁿","󰂀","󰂁","󰂂","󰁹"],
-        "tooltip-format": "{time} remaining"
+        "format": "{icon} {capacity}%",
+        "format-charging": "󰂄 {capacity}%",
+        "format-plugged": "󰚥 {capacity}%",
+        "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+        "tooltip-format": "{timeTo}\n{power:.1f} W"
     },
 
-    "network": {
-        "format-wifi": "󰤨  {essid}",
-        "format-ethernet": "󰈀  {ifname}",
-        "format-disconnected": "󰤭  No Network",
-        "tooltip-format-wifi": "{signalStrength}% signal\n{ipaddr}",
-        "on-click": "nm-connection-editor"
-    },
-
-    "bluetooth": {
-        "format": "󰂯",
-        "format-connected": "󰂱  {device_alias}",
-        "format-connected-battery": "󰂱  {device_alias} {device_battery_percentage}%",
-        "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
-        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
-        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
-        "on-click": "blueman-manager"
-    },
-
-    "pulseaudio": {
-        "format": "{icon}  {volume}%",
-        "format-bluetooth": "󰂰  {volume}%",
-        "format-muted": "󰝟",
-        "format-icons": {
-            "headphone": "󰋋",
-            "default": ["󰕿", "󰖀", "󰕾"]
-        },
-        "on-click": "pavucontrol"
-    },
-
-    "custom/power": {
-        "format": "󰐥",
-        "tooltip": false,
-        "on-click": "rofi -show power-menu -modi 'power-menu:~/.config/rofi/powermenu.sh' -theme ~/.config/rofi/among-trees.rasi"
+    "tray": {
+        "icon-size": 14,
+        "spacing": 6
     }
 }
